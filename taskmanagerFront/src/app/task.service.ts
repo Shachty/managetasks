@@ -5,6 +5,11 @@ import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import {Task} from "./task.component";
+import {Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class TaskService {
@@ -12,11 +17,18 @@ export class TaskService {
   private headers = new Headers({'Content-Type': 'application/json'});
   constructor(private http: Http) { }
 
-  getTasks(): Promise<Task[]> {
+  getTasks(): Observable<Task[]> {
+    // return this.http.get(this.taskUrl)
+    //   .toPromise()
+    //   .then(response => (response.json()) as Task[])
+    //   .catch(this.handleError);
     return this.http.get(this.taskUrl)
-      .toPromise()
-      .then(response => (response.json()) as Task[])
+      .map(this.extractData)
       .catch(this.handleError);
+  }
+  private extractData(res:Response) {
+    let body = res.json();
+    return body || [];
   }
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only

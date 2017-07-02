@@ -1,8 +1,10 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Task} from "./task.component"
-import {Router} from "@angular/router";
 import {TaskService} from "./task.service";
-import { Subject }           from 'rxjs/Subject';
+import {Observable} from "rxjs/Observable";
+import {AnonymousSubscription} from "rxjs/Subscription";
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import 'rxjs/Rx';
 
 // Observable class extensions
 
@@ -19,6 +21,8 @@ import { Subject }           from 'rxjs/Subject';
 export class TaskOverview implements OnInit{
   tasks: Task[];
   selectedTask: Task;
+  private timerSubscription: AnonymousSubscription;
+  private taskSubscription: AnonymousSubscription;
 
   constructor(
     private router: Router,
@@ -27,10 +31,28 @@ export class TaskOverview implements OnInit{
   ngOnInit(): void {
     this.getTasks();
   }
-
-    getTasks(): void {
-    this.taskService.getTasks().then(tasks => this.tasks = tasks);
+  public ngOnDestroy(): void {
+    if (this.taskSubscription) {
+      this.taskSubscription.unsubscribe();
     }
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
+  }
+
+    // getTasks(): void {
+    // this.taskService.getTasks().then(tasks => this.tasks = tasks);
+    // }
+
+  getTasks() {
+    this.taskSubscription = this.taskService.getTasks()
+      .subscribe(
+        tasks =>{this.tasks = tasks;
+          this.subscribeToData();})
+  }
+   private subscribeToData(): void {
+    this.timerSubscription = Observable.timer(3000).first().subscribe(() => this.getTasks());
+  }
 
     onSelect(task: Task): void {
     this.selectedTask = task;
