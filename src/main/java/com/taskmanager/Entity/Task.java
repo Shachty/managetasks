@@ -1,5 +1,7 @@
 package com.taskmanager.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -8,11 +10,15 @@ import java.util.Date;
  */
 public class Task {
 
-    private int id;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime dueDate;
-    private LocalDateTime resolvedAt;
+    public int id;
+    @JsonFormat(pattern="dd-MM-yyyy hh:mm")
+    public LocalDateTime createdAt;
+    @JsonFormat(pattern="dd-MM-yyyy hh:mm")
+    public LocalDateTime updatedAt;
+    @JsonFormat(pattern="dd-MM-yyyy hh:mm")
+    public LocalDateTime dueDate;
+    @JsonFormat(pattern="dd-MM-yyyy hh:mm")
+    public LocalDateTime resolvedAt;
     private String title;
     private String description;
     private int priority;

@@ -3,10 +3,9 @@ package com.taskmanager.Controller;
 import com.taskmanager.Entity.Task;
 import com.taskmanager.Service.TaskManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -19,10 +18,14 @@ public class TaskManagerController {
     @Autowired
     private TaskManagerService taskManagerService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Task> getAllTasks(){
         return this.taskManagerService.getAllTasks();
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public Task getTask(@PathVariable int id){return this.taskManagerService.getTask(id);}
 
 
 

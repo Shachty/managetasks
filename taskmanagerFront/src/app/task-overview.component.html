@@ -1,0 +1,20 @@
+lalala
+<ul>
+  <li *ngFor="let task of tasks" (click)="onSelect(task)">
+    <span>{{task.id}}</span>
+    <span>{{task.title}}</span>
+    <span>{{task.description}}</span>
+    <span>{{task.createdAt}}</span>
+    <span>{{task.updatedAt}}</span>
+    <span>{{task.dueDate}}</span>
+    <span>{{task.resolvedAt}}</span>
+    <span>{{task.status}}</span>
+    <span>{{task.priority}}</span>
+  </li>
+</ul>
+<div>
+  <ngx-datatable class="material"
+    [rows]="rows"
+    [columns]="columns">
+  </ngx-datatable>
+</div>
