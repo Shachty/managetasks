@@ -37,9 +37,19 @@ export class TaskService {
 
   getTask(id: number): Promise<Task> {
     const url = `${this.taskUrl}/${id}`;
+    console.log("attempt to get Task: " + id + 'with url: '+url);
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json().data as Task)
+      .then(response =>{return response.json() as Task})
+      .catch(this.handleError);
+  }
+
+  update(task: Task): Promise<Task>{
+    const url = `${this.taskUrl}/${task.id}`;
+    return this.http
+      .put(url, JSON.stringify(task), {headers: this.headers})
+      .toPromise()
+      .then(() => task)
       .catch(this.handleError);
   }
 

@@ -13,19 +13,21 @@ import java.util.Collection;
  */
 @RestController
 @RequestMapping("task")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TaskManagerController {
 
     @Autowired
     private TaskManagerService taskManagerService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = RequestMethod.GET)
     public Collection<Task> getAllTasks(){
         return this.taskManagerService.getAllTasks();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public Task getTask(@PathVariable int id){return this.taskManagerService.getTask(id);}
+    public Task getTask(@PathVariable int id){
+        return this.taskManagerService.getTask(id);
+    }
 
 
 

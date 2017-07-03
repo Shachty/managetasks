@@ -18,9 +18,9 @@ import 'rxjs/Rx';
   styleUrls: [ './task-overview.component.css' ]
 })
 
-export class TaskOverview implements OnInit{
+export class TaskOverviewComponent implements OnInit{
   tasks: Task[];
-  selectedTask: Task;
+  selected: Task;
   private timerSubscription: AnonymousSubscription;
   private taskSubscription: AnonymousSubscription;
 
@@ -40,10 +40,6 @@ export class TaskOverview implements OnInit{
     }
   }
 
-    // getTasks(): void {
-    // this.taskService.getTasks().then(tasks => this.tasks = tasks);
-    // }
-
   getTasks() {
     this.taskSubscription = this.taskService.getTasks()
       .subscribe(
@@ -54,18 +50,22 @@ export class TaskOverview implements OnInit{
     this.timerSubscription = Observable.timer(3000).first().subscribe(() => this.getTasks());
   }
 
-    onSelect(task: Task): void {
-    this.selectedTask = task;
-    }
 
-  rows = [
-    { name: 'Austin', gender: 'Male', company: 'Swimlane' },
-    { name: 'Dany', gender: 'Male', company: 'KFC' },
-    { name: 'Molly', gender: 'Female', company: 'Burger King' },
-  ];
+
+  onSelect({ selected }) {
+    this.selected = selected[0];
+  }
+  gotoEdit(): void {
+    this.router.navigate(['/edit', this.selected.id]);
+  }
+
+    //task overview table definition
   columns = [
-    { prop: 'name' },
-    { name: 'Gender' },
-    { name: 'Company' }
+    { prop: 'title', name: 'Title' },
+    { prop: 'priority', name: 'Priority' },
+    { prop: 'dueDate', name: 'Due Date'},
+    { prop: 'status', name: 'Status'}
   ];
 }
+
+

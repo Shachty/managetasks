@@ -1,14 +1,16 @@
 package com.taskmanager.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
  * Created by Daniel on 27.06.2017.
  */
-public class Task {
+public class Task implements Serializable {
 
     public int id;
     @JsonFormat(pattern="dd-MM-yyyy hh:mm")

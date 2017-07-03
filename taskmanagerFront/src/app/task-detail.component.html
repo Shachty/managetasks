@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div *ngIf="task">
+  <div class="col-md-offset-1 col-md-6 panel panel-default">
+    <div class="col-md-6">
+      <label>Title:</label><br>
+      <label>Description:</label><br>
+      <label>Status:</label><br>
+      <label>Priority:</label><br>
+      <label>Due Date:</label><br>
+      <label>Created At:</label><br>
+      <label>Resolved At:</label><br>
+      <label>Last Update At:</label><br>
+    </div>
+    <div class="col-md-6">
+      <input [(ngModel)]="task.title" placeholder="title" /><br>
+      <input [(ngModel)]="task.description" placeholder="description" /><br>
+      <select [(ngModel)]="task.status" placeholder="ONHOLD">
+        <option value="ONHOLD">On Hold</option>
+        <option value="DONE">Done</option>
+        <option value="opel">Opel</option>
+        <option value="audi">Audi</option>
+      </select>
+    </div>
 
-</body>
-</html>
+
+
+  <button (click)="goBack()">Back</button>
+  <button (click)="save()">Save</button>
+</div>
+
+</div>
