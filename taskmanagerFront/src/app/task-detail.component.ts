@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { TaskService } from './task.service';
 import {Task} from './task.component';
 import 'rxjs/add/operator/switchMap';
+import {CalendarModule} from 'primeng/primeng';
 
 @Component({
   selector: 'task-detail',
@@ -11,14 +12,24 @@ import 'rxjs/add/operator/switchMap';
 })
 
 export class TaskDetailComponent implements OnInit{
+  dueDateEdit: Date;
     @Input() task: Task;
   ngOnInit(): void {
     console.log("task: "+JSON.stringify(this.task));
     // this.route.paramMap.switchMap((params: ParamMap) => console.log('param' + params));
     this.route.paramMap
       .switchMap((params: ParamMap) => this.taskService.getTask(+params.get('id')))
-      .subscribe(task => {console.log('got this:' + JSON.stringify(task));this.task = task;});
+      .subscribe(task => {this.task = task;this.repairDateProperties(task)});
+
   }
+
+  repairDateProperties(task: Task): void{
+    this.task.dueDate = new Date(task.dueDate)
+    this.task.resolvedAt = new Date(task.resolvedAt)
+    this.task.createdAt = new Date(task.createdAt)
+    this.task.updatedAt = new Date(task.updatedAt)
+  }
+
   constructor(
     private taskService: TaskService,
     private route: ActivatedRoute,
@@ -28,6 +39,8 @@ export class TaskDetailComponent implements OnInit{
     this.location.back();
   }
   save(): void {
+    this.task.dueDate = this.dueDateEdit;
+    console.log(this.task.dueDate);
     this.taskService.update(this.task)
       .then(() => this.goBack());
   }

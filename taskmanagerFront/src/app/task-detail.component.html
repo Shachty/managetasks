@@ -1,30 +1,50 @@
 <div *ngIf="task">
   <div class="col-md-offset-1 col-md-6 panel panel-default">
-    <div class="col-md-6">
-      <label>Title:</label><br>
-      <label>Description:</label><br>
-      <label>Status:</label><br>
-      <label>Priority:</label><br>
-      <label>Due Date:</label><br>
-      <label>Created At:</label><br>
-      <label>Resolved At:</label><br>
-      <label>Last Update At:</label><br>
+    <div class="form-group">
+      <label for="titleInput">Title</label>
+      <input id="titleInput"  [(ngModel)]="task.title" class="form-control" placeholder="title" />
     </div>
-    <div class="col-md-6">
-      <input [(ngModel)]="task.title" placeholder="title" /><br>
-      <input [(ngModel)]="task.description" placeholder="description" /><br>
-      <select [(ngModel)]="task.status" placeholder="ONHOLD">
+    <div class="form-group">
+      <label for="statusInput">Status </label>
+      <select id="statusInput" [(ngModel)]="task.status" class="form-control" placeholder="ONHOLD">
         <option value="ONHOLD">On Hold</option>
         <option value="DONE">Done</option>
-        <option value="opel">Opel</option>
-        <option value="audi">Audi</option>
+        <option value="ABORTED">Aborted</option>
+        <option value="INPROGRESS">In Progress</option>
       </select>
     </div>
-
-
-
-  <button (click)="goBack()">Back</button>
-  <button (click)="save()">Save</button>
-</div>
-
+    <div class="form-group">
+      <label for="priorityInput">Priority</label>
+      <select id="priorityInput" [(ngModel)]="task.priority" class="form-control" placeholder="ONHOLD">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+    </div>
+    <div class="form-group">
+        <label for="dueDateInput">Due Date</label><br>
+        <p-calendar id="dueDateInput" [(ngModel)]="task.dueDate" showTime='true' hourFormat="24" dateFormat="dd-mm-yy"></p-calendar>
+    </div>
+    <div class="form-group">
+        <label for="createdAtInput">Created At</label><br>
+      <p-calendar id="createdAtInput" [(ngModel)]="task.createdAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="true"></p-calendar>
+    </div>
+    <div class="form-group">
+        <label for="resolvedAtInput">Resolved At</label><br>
+      <p-calendar id="resolvedAtInput" [(ngModel)]="task.resolvedAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="true"></p-calendar>
+    </div>
+    <div class="form-group">
+        <label for="lastUpdateInput">Last Update At</label><br>
+      <p-calendar id="lastUpdateInput" [(ngModel)]="task.updatedAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="true"></p-calendar>
+    </div>
+    <div class="form-group">
+      <label for="descriptionInput">Description</label>
+      <input id="descriptionInput" class="form-control" [(ngModel)]="task.description" placeholder="description" />
+    </div>
+  <div class="button-footer table-bordered col-md-offset-1 col-md-6 panel panel-default">
+    <button class="btn btn-primary" (click)="goBack()">Back</button>
+    <button class="btn btn-primary" (click)="save()">Save</button>
+  </div>
+  </div>
 </div>
