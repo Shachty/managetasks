@@ -45,9 +45,18 @@ export class TaskService {
   }
 
   update(task: Task): Promise<Task>{
-    const url = `${this.taskUrl}/${task.id}`;
+    const url = `${this.taskUrl}/update/${task.id}`;
     return this.http
       .put(url, JSON.stringify(task), {headers: this.headers})
+      .toPromise()
+      .then(() => task)
+      .catch(this.handleError);
+  }
+
+  add(task: Task): Promise<Task>{
+    const url = `${this.taskUrl}/add`;
+    return this.http
+      .post(url, JSON.stringify(task), {headers: this.headers})
       .toPromise()
       .then(() => task)
       .catch(this.handleError);

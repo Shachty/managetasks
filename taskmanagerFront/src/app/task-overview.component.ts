@@ -50,22 +50,26 @@ export class TaskOverviewComponent implements OnInit{
     this.timerSubscription = Observable.timer(3000).first().subscribe(() => this.getTasks());
   }
 
-
-
   onSelect({ selected }) {
     this.selected = selected[0];
   }
   gotoEdit(): void {
     this.router.navigate(['/edit', this.selected.id]);
   }
+  gotoNew(): void {
+    this.router.navigate(['/create']);
+  }
 
     //task overview table definition
   columns = [
-    { prop: 'title', name: 'Title' },
+    { prop: 'title', name: 'Title', sortable:false },
     { prop: 'priority', name: 'Priority' },
     { prop: 'dueDate', name: 'Due Date'},
-    { prop: 'status', name: 'Status'}
+    { prop: 'status', name: 'Status', sortable:false}
   ];
+
+
+
 }
 
 

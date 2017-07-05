@@ -28,6 +28,15 @@ public class TaskManagerController {
     public Task getTask(@PathVariable int id){
         return this.taskManagerService.getTask(id);
     }
+    @RequestMapping(method = RequestMethod.PUT, value = "/update/{id}")
+    public boolean update(@PathVariable int id, @RequestBody Task task){
+        return this.taskManagerService.updateTask(task);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/add")
+    public Task add(@RequestBody Task task){
+        return this.taskManagerService.addTask(task);
+    }
 
 
 

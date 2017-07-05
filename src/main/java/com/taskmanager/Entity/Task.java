@@ -1,7 +1,9 @@
 package com.taskmanager.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.taskmanager.CustomJsonDateDeserializer;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -14,12 +16,16 @@ public class Task implements Serializable {
 
     public int id;
     @JsonFormat(pattern="dd-MM-yyyy hh:mm")
+    @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     public LocalDateTime createdAt;
     @JsonFormat(pattern="dd-MM-yyyy hh:mm")
+    @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     public LocalDateTime updatedAt;
     @JsonFormat(pattern="dd-MM-yyyy hh:mm")
+    @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     public LocalDateTime dueDate;
     @JsonFormat(pattern="dd-MM-yyyy hh:mm")
+    @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     public LocalDateTime resolvedAt;
     private String title;
     private String description;
@@ -38,6 +44,8 @@ public class Task implements Serializable {
         this.priority = priority;
         this.status = status;
     }
+
+    public Task(){};
 
     public int getId() {
         return id;

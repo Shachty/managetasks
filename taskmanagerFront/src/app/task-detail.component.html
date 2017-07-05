@@ -1,21 +1,24 @@
 <div *ngIf="task">
   <div class="col-md-offset-1 col-md-6 panel panel-default">
+    <div class="page-header">
+      <h1>{{mode}} Task</h1>
+    </div>
     <div class="form-group">
       <label for="titleInput">Title</label>
       <input id="titleInput"  [(ngModel)]="task.title" class="form-control" placeholder="title" />
     </div>
     <div class="form-group">
       <label for="statusInput">Status </label>
-      <select id="statusInput" [(ngModel)]="task.status" class="form-control" placeholder="ONHOLD">
-        <option value="ONHOLD">On Hold</option>
+      <select id="statusInput" [(ngModel)]="task.status" (ngModelChange)="checkStatus($event)" class="form-control" placeholder="ONHOLD">
+        <option value="NEW">New</option>
+        <option value="INPROGRESS">In Progress</option>
         <option value="DONE">Done</option>
         <option value="ABORTED">Aborted</option>
-        <option value="INPROGRESS">In Progress</option>
       </select>
     </div>
     <div class="form-group">
       <label for="priorityInput">Priority</label>
-      <select id="priorityInput" [(ngModel)]="task.priority" class="form-control" placeholder="ONHOLD">
+      <select id="priorityInput" [(ngModel)]="task.priority" class="form-control" placeholder="1">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -24,25 +27,25 @@
     </div>
     <div class="form-group">
         <label for="dueDateInput">Due Date</label><br>
-        <p-calendar id="dueDateInput" [(ngModel)]="task.dueDate" showTime='true' hourFormat="24" dateFormat="dd-mm-yy"></p-calendar>
+        <p-calendar id="dueDateInput" [(ngModel)]="task.dueDate" showTime='true' hourFormat="24" dateFormat="dd-mm-yy"></p-calendar> {{task.dueDate|date}}
     </div>
     <div class="form-group">
         <label for="createdAtInput">Created At</label><br>
-      <p-calendar id="createdAtInput" [(ngModel)]="task.createdAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="true"></p-calendar>
+      <p-calendar id="createdAtInput" [(ngModel)]="task.createdAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="true"></p-calendar> {{task.createdAt|date}}
     </div>
     <div class="form-group">
         <label for="resolvedAtInput">Resolved At</label><br>
-      <p-calendar id="resolvedAtInput" [(ngModel)]="task.resolvedAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="true"></p-calendar>
+      <p-calendar id="resolvedAtInput" [(ngModel)]="task.resolvedAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="{{!enableResolvedDate}}"></p-calendar> {{task.resolvedAt|date}}
     </div>
     <div class="form-group">
         <label for="lastUpdateInput">Last Update At</label><br>
-      <p-calendar id="lastUpdateInput" [(ngModel)]="task.updatedAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="true"></p-calendar>
+      <p-calendar id="lastUpdateInput" [(ngModel)]="task.updatedAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="true"></p-calendar> {{task.updatedAt|date}}
     </div>
     <div class="form-group">
       <label for="descriptionInput">Description</label>
       <input id="descriptionInput" class="form-control" [(ngModel)]="task.description" placeholder="description" />
     </div>
-  <div class="button-footer table-bordered col-md-offset-1 col-md-6 panel panel-default">
+  <div class="button-footer table-bordered">
     <button class="btn btn-primary" (click)="goBack()">Back</button>
     <button class="btn btn-primary" (click)="save()">Save</button>
   </div>

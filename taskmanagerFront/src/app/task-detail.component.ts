@@ -12,7 +12,6 @@ import {CalendarModule} from 'primeng/primeng';
 })
 
 export class TaskDetailComponent implements OnInit{
-  dueDateEdit: Date;
     @Input() task: Task;
   ngOnInit(): void {
     console.log("task: "+JSON.stringify(this.task));
@@ -22,12 +21,40 @@ export class TaskDetailComponent implements OnInit{
       .subscribe(task => {this.task = task;this.repairDateProperties(task)});
 
   }
+  dummyDate: Date;
+  resolvedDateCache: Date;
+  enableResolvedDate: boolean;
 
   repairDateProperties(task: Task): void{
-    this.task.dueDate = new Date(task.dueDate)
-    this.task.resolvedAt = new Date(task.resolvedAt)
-    this.task.createdAt = new Date(task.createdAt)
-    this.task.updatedAt = new Date(task.updatedAt)
+    this.task.dueDate = new Date(task.dueDate);
+    this.task.resolvedAt = new Date(task.resolvedAt);
+    this.task.createdAt = new Date(task.createdAt);
+    this.task.updatedAt = new Date(task.updatedAt);
+    this.resolvedDateCache = new Date(task.resolvedAt);
+  }
+
+  mode: string = 'Edit';
+  checkStatus(event){
+    switch(event){
+      case 'INPROGRESS':{
+        this.resolvedDateCache = this.task.resolvedAt;
+        this.task.resolvedAt=this.dummyDate;
+        this.enableResolvedDate = false;
+        break;
+      }
+      case 'DONE':{
+        this.task.resolvedAt = this.resolvedDateCache;
+        this.enableResolvedDate = true;
+        break;
+      }
+      case 'ABORTED':{
+        this.resolvedDateCache = this.task.resolvedAt;
+        this.task.resolvedAt=this.dummyDate;
+        this.enableResolvedDate = false;
+        break;
+      }
+    }
+    console.log('status',event, this.enableResolvedDate);
   }
 
   constructor(
@@ -39,8 +66,7 @@ export class TaskDetailComponent implements OnInit{
     this.location.back();
   }
   save(): void {
-    this.task.dueDate = this.dueDateEdit;
-    console.log(this.task.dueDate);
+    this.task.updatedAt = new Date();
     this.taskService.update(this.task)
       .then(() => this.goBack());
   }

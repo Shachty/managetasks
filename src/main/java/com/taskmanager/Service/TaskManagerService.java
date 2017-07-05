@@ -32,12 +32,13 @@ public class TaskManagerService {
         return taskDao.getTask(id);
     }
 
-    public void addTask(Task task){
+    public Task addTask(Task task){
         taskQueue.offer(task);
+        return task;
     }
 
     public boolean updateTask(Task task){
-        return taskDao.updateTask(task);
+        return this.taskDao.updateTask(task);
     }
 
     public boolean deleteTask(Task task){

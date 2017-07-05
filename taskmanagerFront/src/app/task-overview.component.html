@@ -1,5 +1,7 @@
-<div class="col-md-offset-1 col-md-6">
-  <div class="table-bordered">
+<div class="col-md-offset-1 col-md-6 panel panel-default">
+    <div class="page-header">
+      <h1>Task overview</h1>
+    </div>
   <ngx-datatable
     class="material"
     [headerHeight]="50"
@@ -9,11 +11,12 @@
     [selectionType]="'single'"
     (select)='onSelect($event)'
     [rows]="tasks"
-    [columns]="columns">
+    [columns]="columns"
+    [sorts]="[{prop: 'dueDate', dir: 'asc'}, {prop: 'priority', dir: 'asc'}]">
+    >
   </ngx-datatable>
-  </div>
 <div class="button-footer table-bordered">
-  <button type="button" class="btn btn-primary">New Task</button>
+  <button type="button" class="btn btn-primary" (click)="gotoNew()">New Task</button>
   <button *ngIf="selected" type="button" class="btn btn-primary" (click)="gotoEdit()">Edit Task</button>
 </div>
 </div>

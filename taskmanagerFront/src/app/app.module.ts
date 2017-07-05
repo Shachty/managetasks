@@ -12,13 +12,15 @@ import {TaskDetailComponent} from "./task-detail.component";
 import {AccordionModule} from 'primeng/primeng';     //accordion and accordion tab
 import {MenuItem} from 'primeng/primeng';            //api
 import {CalendarModule} from 'primeng/primeng';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";     //accordion and accordion tab
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {NewTaskComponent} from "./new-task.component";     //accordion and accordion tab
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskOverviewComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    NewTaskComponent
   ],
   imports: [
     BrowserModule,

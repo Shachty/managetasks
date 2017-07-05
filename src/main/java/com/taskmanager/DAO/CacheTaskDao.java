@@ -35,11 +35,11 @@ public class CacheTaskDao implements TaskDao {
         }
     }
 
-    public boolean addTask(Task task){
+    public Task addTask(Task task){
         task.setId(idCounter);
         this.taskCache.put(idCounter++, task);
         log.info("persisted task with the id: " + idCounter);
-        return true;
+        return task;
     }
 
     public boolean updateTask(Task task){

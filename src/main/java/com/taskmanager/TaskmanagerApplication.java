@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableScheduling
 public class TaskmanagerApplication {
 
-    ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfiguration.class);
+    ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfiguration.class, WebSecurityConfig.class);
 	public static void main(String[] args) {
 		SpringApplication.run(TaskmanagerApplication.class, args);
 	}

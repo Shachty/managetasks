@@ -40,7 +40,7 @@ public class TaskGenerator {
                 TaskTitles.values()[randomGenerator.nextInt(TaskTitles.values().length)].toString(),
                 description + counter++,
                 randomGenerator.nextInt(5),
-                Status.ONHOLD);
+                Status.NEW);
     }
 }
 enum TaskTitles{
