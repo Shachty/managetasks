@@ -39,7 +39,7 @@ public class TaskGenerator {
                 null,
                 TaskTitles.values()[randomGenerator.nextInt(TaskTitles.values().length)].toString(),
                 description + counter++,
-                randomGenerator.nextInt(5),
+                randomGenerator.nextInt(4)+1,
                 Status.NEW);
     }
 }

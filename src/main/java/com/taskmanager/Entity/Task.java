@@ -12,19 +12,20 @@ import java.util.Date;
 /**
  * Created by Daniel on 27.06.2017.
  */
-public class Task implements Serializable {
+
+public class Task implements Serializable, Comparable<Task> {
 
     public int id;
-    @JsonFormat(pattern="dd-MM-yyyy hh:mm")
+    @JsonFormat(pattern = "dd-MM-yyyy hh:mm")
     @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     public LocalDateTime createdAt;
-    @JsonFormat(pattern="dd-MM-yyyy hh:mm")
+    @JsonFormat(pattern = "dd-MM-yyyy hh:mm")
     @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     public LocalDateTime updatedAt;
-    @JsonFormat(pattern="dd-MM-yyyy hh:mm")
+    @JsonFormat(pattern = "dd-MM-yyyy hh:mm")
     @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     public LocalDateTime dueDate;
-    @JsonFormat(pattern="dd-MM-yyyy hh:mm")
+    @JsonFormat(pattern = "dd-MM-yyyy hh:mm")
     @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     public LocalDateTime resolvedAt;
     private String title;
@@ -45,7 +46,35 @@ public class Task implements Serializable {
         this.status = status;
     }
 
-    public Task(){};
+    @Override
+    public int compareTo(Task o) {
+        if (getDueDate() == null || o.getDueDate() == null) {
+            return 0;
+        }
+        if (getDueDate().toLocalDate().isBefore(o.getDueDate().toLocalDate())) {
+            return -1;
+        } else {
+            if (getDueDate().toLocalDate().isEqual(o.getDueDate().toLocalDate())) {
+                //then sort by priority
+                if (getPriority() == 0 || o.getPriority() == 0 || getPriority() == o.getPriority()) {
+                    return 0;
+                } else {
+                    if (getPriority() < o.getPriority()) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                }
+            } else {
+                return 1;
+            }
+        }
+    }
+
+    public Task() {
+    }
+
+    ;
 
     public int getId() {
         return id;
@@ -119,6 +148,8 @@ public class Task implements Serializable {
         this.status = status;
     }
 }
+
+
 
 
 

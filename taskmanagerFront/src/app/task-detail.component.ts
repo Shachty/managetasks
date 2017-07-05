@@ -18,11 +18,9 @@ export class TaskDetailComponent implements OnInit{
     // this.route.paramMap.switchMap((params: ParamMap) => console.log('param' + params));
     this.route.paramMap
       .switchMap((params: ParamMap) => this.taskService.getTask(+params.get('id')))
-      .subscribe(task => {this.task = task;this.repairDateProperties(task)});
-
+      .subscribe(task => {this.task = task;this.repairDateProperties(task);this.checkStatus(this.task.status);});
   }
   dummyDate: Date;
-  resolvedDateCache: Date;
   enableResolvedDate: boolean;
 
   repairDateProperties(task: Task): void{
@@ -30,25 +28,28 @@ export class TaskDetailComponent implements OnInit{
     this.task.resolvedAt = new Date(task.resolvedAt);
     this.task.createdAt = new Date(task.createdAt);
     this.task.updatedAt = new Date(task.updatedAt);
-    this.resolvedDateCache = new Date(task.resolvedAt);
   }
 
   mode: string = 'Edit';
   checkStatus(event){
     switch(event){
+      case 'NEW':{
+        this.task.resolvedAt=this.dummyDate;
+        this.enableResolvedDate = false;
+        this.task.updatedAt = this.dummyDate;
+        break;
+      }
       case 'INPROGRESS':{
-        this.resolvedDateCache = this.task.resolvedAt;
         this.task.resolvedAt=this.dummyDate;
         this.enableResolvedDate = false;
         break;
       }
       case 'DONE':{
-        this.task.resolvedAt = this.resolvedDateCache;
+        this.task.resolvedAt = new Date();
         this.enableResolvedDate = true;
         break;
       }
       case 'ABORTED':{
-        this.resolvedDateCache = this.task.resolvedAt;
         this.task.resolvedAt=this.dummyDate;
         this.enableResolvedDate = false;
         break;

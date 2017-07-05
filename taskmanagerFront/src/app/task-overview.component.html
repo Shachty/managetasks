@@ -11,9 +11,7 @@
     [selectionType]="'single'"
     (select)='onSelect($event)'
     [rows]="tasks"
-    [columns]="columns"
-    [sorts]="[{prop: 'dueDate', dir: 'asc'}, {prop: 'priority', dir: 'asc'}]">
-    >
+    [columns]="columns">
   </ngx-datatable>
 <div class="button-footer table-bordered">
   <button type="button" class="btn btn-primary" (click)="gotoNew()">New Task</button>

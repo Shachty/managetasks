@@ -63,12 +63,10 @@ export class TaskOverviewComponent implements OnInit{
     //task overview table definition
   columns = [
     { prop: 'title', name: 'Title', sortable:false },
-    { prop: 'priority', name: 'Priority' },
-    { prop: 'dueDate', name: 'Due Date'},
+    { prop: 'priority', name: 'Priority', sortable:false },
+    { prop: 'dueDate', name: 'Due Date', sortable:false},
     { prop: 'status', name: 'Status', sortable:false}
   ];
-
-
 
 }
 

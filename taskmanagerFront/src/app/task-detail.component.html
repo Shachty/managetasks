@@ -9,7 +9,7 @@
     </div>
     <div class="form-group">
       <label for="statusInput">Status </label>
-      <select id="statusInput" [(ngModel)]="task.status" (ngModelChange)="checkStatus($event)" class="form-control" placeholder="ONHOLD">
+      <select id="statusInput" [(ngModel)]="task.status" (ngModelChange)="checkStatus($event)" class="form-control" placeholder="NEW" disabled="{{mode == 'Create'}}">
         <option value="NEW">New</option>
         <option value="INPROGRESS">In Progress</option>
         <option value="DONE">Done</option>
@@ -27,19 +27,19 @@
     </div>
     <div class="form-group">
         <label for="dueDateInput">Due Date</label><br>
-        <p-calendar id="dueDateInput" [(ngModel)]="task.dueDate" showTime='true' hourFormat="24" dateFormat="dd-mm-yy"></p-calendar> {{task.dueDate|date}}
+        <p-calendar id="dueDateInput" [(ngModel)]="task.dueDate" showTime='true' hourFormat="24" dateFormat="dd-mm-yy"></p-calendar>
     </div>
     <div class="form-group">
         <label for="createdAtInput">Created At</label><br>
-      <p-calendar id="createdAtInput" [(ngModel)]="task.createdAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="true"></p-calendar> {{task.createdAt|date}}
+      <p-calendar id="createdAtInput" [(ngModel)]="task.createdAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="true"></p-calendar>
     </div>
     <div class="form-group">
         <label for="resolvedAtInput">Resolved At</label><br>
-      <p-calendar id="resolvedAtInput" [(ngModel)]="task.resolvedAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="{{!enableResolvedDate}}"></p-calendar> {{task.resolvedAt|date}}
+      <p-calendar id="resolvedAtInput" [(ngModel)]="task.resolvedAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="{{!enableResolvedDate}}"></p-calendar>
     </div>
     <div class="form-group">
         <label for="lastUpdateInput">Last Update At</label><br>
-      <p-calendar id="lastUpdateInput" [(ngModel)]="task.updatedAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="true"></p-calendar> {{task.updatedAt|date}}
+      <p-calendar id="lastUpdateInput" [(ngModel)]="task.updatedAt" showTime='true' hourFormat="24" dateFormat="dd-mm-yy" disabled="true"></p-calendar>
     </div>
     <div class="form-group">
       <label for="descriptionInput">Description</label>

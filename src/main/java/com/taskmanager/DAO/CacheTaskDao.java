@@ -5,9 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Daniel on 27.06.2017.
@@ -24,7 +22,9 @@ public class CacheTaskDao implements TaskDao {
     }
 
     public Collection<Task> getAllTasks(){
-        return this.taskCache.values();
+        List ret = new ArrayList(this.taskCache.values());
+        Collections.sort(ret);
+        return ret;
     }
 
     public Task getTask(int id){
