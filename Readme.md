@@ -26,5 +26,5 @@ This may take some minutes. After the dependencies are downloaded on your machin
 
 This command will start the Angular application on localhost:4200. The whole Taskmanager should be controlled though the front-end 
 
-#Contact
+# Contact
 If you have questions don't hesitate to contact me at Daniel.Shatkin@gmail.com
